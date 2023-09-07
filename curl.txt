@@ -1,0 +1,4 @@
+curl -X POST http://localhost:8080/user/create -H 'Content-Type: application/json' -d '{
+        "email":"example@example.com",
+        "password":"password"
+    }'
