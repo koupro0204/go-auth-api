@@ -3,11 +3,13 @@ package usecase
 import (
 	"go-auth-api/domain/entity"
 	"go-auth-api/domain/repository"
+	myerror "go-auth-api/error"
 )
 
 // interfaceから呼び出せるように
 type User interface {
 	InsertUser(email string, password string) (*entity.User, error)
+	SelectUser(email string, password string) (*entity.User, error)
 }
 
 type user struct {
@@ -34,5 +36,17 @@ func (u user) InsertUser(email string, password string) (*entity.User, error) {
 		return nil, err
 	}
 
+	return user, nil
+}
+func (u user) SelectUser(email string, password string) (*entity.User, error) {
+	// データベースでユーザデータを検索
+	user, err := u.userRepository.SelectUserByEmail(email)
+	if err != nil {
+		return nil, err
+	}
+	// passwordが正しいか判断
+	if password != user.Password {
+		return nil, myerror.New(myerror.ErrorValidation, "invalid password")
+	}
 	return user, nil
 }
