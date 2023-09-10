@@ -25,3 +25,22 @@ func (u userPersistence) InsertUser(user *entity.User) (*entity.User, error) {
 	}
 	return user, nil
 }
+
+// SelectUserByEmail emailを条件にレコードを取得する
+func (up userPersistence) SelectUserByEmail(email string) (*entity.User, error) {
+	// passwordが正しいかはusecaseで行う
+	row := up.DB.QueryRow("SELECT * FROM User WHERE email=?", email)
+	return convertToUser(row)
+}
+
+// convertToUser rowデータをUserデータへ変換する
+func convertToUser(row *sql.Row) (*entity.User, error) {
+	var user entity.User
+	if err := row.Scan(&user.UserID, &user.Email, &user.Password); err != nil {
+		if err == sql.ErrNoRows {
+			return nil, myerror.New(myerror.ErrorDB, "User is not exist")
+		}
+		return nil, myerror.New(myerror.ErrorDB, "Failed convert to User")
+	}
+	return &user, nil
+}

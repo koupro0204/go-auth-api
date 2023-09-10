@@ -1,4 +1,25 @@
+"/user/create"
 curl -X POST http://localhost:8080/user/create -H 'Content-Type: application/json' -d '{
         "email":"example@example.com",
         "password":"password"
+    }'
+
+"/products/create"
+curl -X POST http://localhost:8080/products/create -H 'Content-Type: application/json' -d '{
+        "name":"password",
+        "number":"gfdshbdfsh"
+    }'
+"/user/products"
+curl -X POST http://localhost:8080/user/products -H 'Content-Type: application/json' -d '{
+        "email":"example@example.com",
+        "password":"password",
+        "name":"password",
+        "number":"gfdshbdfsh"
+    }'
+"/user/auth"
+curl -X POST http://localhost:8080/user/auth -H 'Content-Type: application/json' -d '{
+        "email":"example@example.com",
+        "password":"password",
+        "name":"password",
+        "number":"gfdshghtferbdfsh"
     }'
