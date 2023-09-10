@@ -39,7 +39,7 @@ func (u user) HandleUserCreate(c echo.Context) error {
 	}
 	// emailのバリデーションを行う。
 	if err := isValidEmail(req.Email); err != nil {
-		return myerror.New(myerror.ErrorValidation, "Invalid email")
+		return myerror.New(myerror.ErrorValidationEmail, "Invalid email")
 	}
 	// データベースにユーザデータを登録する
 	_, err := u.userUseCase.InsertUser(req.Email, req.Password)

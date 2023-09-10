@@ -46,7 +46,7 @@ func (u user) SelectUser(email string, password string) (*entity.User, error) {
 	}
 	// passwordが正しいか判断
 	if password != user.Password {
-		return nil, myerror.New(myerror.ErrorValidation, "invalid password")
+		return nil, myerror.New(myerror.ErrorValidationPassword, "invalid password")
 	}
 	return user, nil
 }

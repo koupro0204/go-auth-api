@@ -45,10 +45,13 @@ func main() {
 	// 作成したerrorをミドルウェアに設定
 	e.HTTPErrorHandler = middleware.ErrorHandler
 	// /* ===== URLマッピングを行う ===== */
+	// ユーザー作成
 	e.POST("/user/create", userHandler.HandleUserCreate)
+	// ユーザーと製品の紐づけ
 	e.POST("/user/products", userProductHandler.HandleUserProductCreate)
+	// ユーザーと製品の認証
 	e.POST("/user/auth", userProductHandler.HandleAuth)
-
+	// 製品情報作成
 	e.POST("/products/create", productHandler.HandleProductCreate)
 
 	/* ===== サーバの起動 ===== */

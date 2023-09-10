@@ -35,7 +35,7 @@ func (up userProduct) InsertUserProduct(email, password, name, number string) (*
 	}
 	// passwordが正しいか判断
 	if password != user.Password {
-		return nil, myerror.New(myerror.ErrorValidation, "invalid password")
+		return nil, myerror.New(myerror.ErrorValidationPassword, "invalid password")
 	}
 	// Productが存在するか
 	// データベースからProductデータを検索
@@ -45,7 +45,7 @@ func (up userProduct) InsertUserProduct(email, password, name, number string) (*
 	}
 	// DB上のnameと受け取ったNameがあっているか
 	if name != product.Name {
-		return nil, myerror.New(myerror.ErrorValidation, "invalid name")
+		return nil, myerror.New(myerror.ErrorValidationName, "invalid name")
 	}
 	// データベースにUserProductデータを登録する
 	userProduct, err := up.userProductRepository.InsertUserProduct(&entity.UserProduct{
@@ -68,7 +68,7 @@ func (up userProduct) SelectUserProduct(email, password, name, number string) er
 	}
 	// passwordが正しいか判断
 	if password != user.Password {
-		return myerror.New(myerror.ErrorValidation, "invalid password")
+		return myerror.New(myerror.ErrorValidationPassword, "invalid password")
 	}
 	// Productが存在するか
 	// データベースからProductデータを検索
@@ -78,7 +78,7 @@ func (up userProduct) SelectUserProduct(email, password, name, number string) er
 	}
 	// DB上のnameと受け取ったNameがあっているか
 	if name != product.Name {
-		return myerror.New(myerror.ErrorValidation, "invalid name")
+		return myerror.New(myerror.ErrorValidationName, "invalid name")
 	}
 	// DBに登録されている確認
 	if err := up.userProductRepository.SelectUserProduct(user.UserID, product.ProductID); err != nil {

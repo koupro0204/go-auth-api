@@ -10,12 +10,19 @@ type errorcode int
 
 const (
 	// 良い感じに定義する
-	ErrorUnExpected errorcode = 1000
-	ErrorNotFound   errorcode = 404
-	ErrorHttp       errorcode = 3000
-	ErrorDB         errorcode = 4000
-	ErrorQuery      errorcode = 5000
-	ErrorValidation errorcode = 6000
+	ErrorUnExpected         errorcode = 1000
+	ErrorNotFound           errorcode = 404
+	ErrorHttp               errorcode = 3000
+	ErrorDB                 errorcode = 4000
+	ErrorNotLinked          errorcode = 4001
+	ErrorNotExistUser       errorcode = 4002
+	ErrorNotExistProduct    errorcode = 4003
+	ErrorInsert             errorcode = 4004
+	ErrorQuery              errorcode = 5000
+	ErrorValidation         errorcode = 6000
+	ErrorValidationName     errorcode = 6001
+	ErrorValidationPassword errorcode = 6002
+	ErrorValidationEmail    errorcode = 6003
 )
 
 type Exception struct {

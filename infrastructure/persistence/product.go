@@ -21,7 +21,7 @@ func (p productPersistence) InsertProduct(product *entity.Product) (*entity.Prod
 		product.Name,
 		product.Number,
 	); err != nil {
-		return nil, myerror.New(myerror.ErrorDB, "Failed product insert")
+		return nil, myerror.New(myerror.ErrorInsert, "Failed product insert")
 	}
 	return product, nil
 }
@@ -38,7 +38,7 @@ func convertToProduct(row *sql.Row) (*entity.Product, error) {
 	var product entity.Product
 	if err := row.Scan(&product.ProductID, &product.Name, &product.Number); err != nil {
 		if err == sql.ErrNoRows {
-			return nil, myerror.New(myerror.ErrorDB, "Product is not exist")
+			return nil, myerror.New(myerror.ErrorNotExistProduct, "Product is not exist")
 		}
 		return nil, myerror.New(myerror.ErrorDB, "Failed convert to Product")
 	}

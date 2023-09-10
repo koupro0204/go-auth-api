@@ -42,7 +42,7 @@ func (p product) SelectProduct(name, number string) (*entity.Product, error) {
 	}
 	// DB上のnameと受け取ったNameがあっているか
 	if name != product.Name {
-		return nil, myerror.New(myerror.ErrorValidation, "invalid name")
+		return nil, myerror.New(myerror.ErrorValidationName, "invalid name")
 	}
 
 	return product, nil
