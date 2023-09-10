@@ -41,7 +41,7 @@ func (up userProduct) HandleUserProductCreate(c echo.Context) error {
 	}
 	// emailのバリデーションを行う。
 	if err := isValidEmail(req.Email); err != nil {
-		return myerror.New(myerror.ErrorValidation, "Invalid email")
+		return myerror.New(myerror.ErrorValidationEmail, "Invalid email")
 	}
 	// データベースにproductデータを登録する
 	_, err := up.userProductUseCase.InsertUserProduct(req.Email, req.Password, req.Name, req.Number)
@@ -63,7 +63,7 @@ func (up userProduct) HandleAuth(c echo.Context) error {
 	}
 	// emailのバリデーションを行う。
 	if err := isValidEmail(req.Email); err != nil {
-		return myerror.New(myerror.ErrorValidation, "Invalid email")
+		return myerror.New(myerror.ErrorValidationEmail, "Invalid email")
 	}
 	// 認証処理
 	if err := up.userProductUseCase.SelectUserProduct(req.Email, req.Password, req.Name, req.Number); err != nil {

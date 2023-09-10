@@ -21,7 +21,7 @@ func (u userPersistence) InsertUser(user *entity.User) (*entity.User, error) {
 		user.Email,
 		user.Password,
 	); err != nil {
-		return nil, myerror.New(myerror.ErrorDB, "Failed user insert")
+		return nil, myerror.New(myerror.ErrorInsert, "Failed user insert")
 	}
 	return user, nil
 }
@@ -38,7 +38,7 @@ func convertToUser(row *sql.Row) (*entity.User, error) {
 	var user entity.User
 	if err := row.Scan(&user.UserID, &user.Email, &user.Password); err != nil {
 		if err == sql.ErrNoRows {
-			return nil, myerror.New(myerror.ErrorDB, "User is not exist")
+			return nil, myerror.New(myerror.ErrorNotExistUser, "User is not exist")
 		}
 		return nil, myerror.New(myerror.ErrorDB, "Failed convert to User")
 	}

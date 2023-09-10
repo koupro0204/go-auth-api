@@ -21,7 +21,7 @@ func (up userProductPersistence) InsertUserProduct(userProduct *entity.UserProdu
 		userProduct.UserID,
 		userProduct.ProductID,
 	); err != nil {
-		return nil, myerror.New(myerror.ErrorDB, "Failed UserProduct insert")
+		return nil, myerror.New(myerror.ErrorInsert, "Failed UserProduct insert")
 	}
 	return userProduct, nil
 }
@@ -42,7 +42,7 @@ func convertToUserProduct(row *sql.Row) (*entity.UserProduct, error) {
 	var userProduct entity.UserProduct
 	if err := row.Scan(&userProduct.UserProductID, &userProduct.UserID, &userProduct.ProductID); err != nil {
 		if err == sql.ErrNoRows {
-			return nil, myerror.New(myerror.ErrorDB, "auth failed")
+			return nil, myerror.New(myerror.ErrorNotLinked, "User and product are not linked")
 		}
 		return nil, myerror.New(myerror.ErrorDB, "Failed convert to userProduct")
 	}
